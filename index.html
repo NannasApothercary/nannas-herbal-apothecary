@@ -982,6 +982,37 @@
     box-shadow: 0 2px 14px rgba(0,0,0,0.08);
     text-align: left;
   }
+
+  /* ---- LANGUAGE TOGGLE ---- */
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    padding: 0.3rem 0.75rem;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.65);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--sage);
+    color: white;
+    border-radius: 20px;
+  }
+  .lang-btn:hover:not(.active) { color: white; }
+
   .herb-pill {
     background: linear-gradient(135deg, #e8f5e9, #c8e6c9) !important;
     border-color: #81c784 !important;
@@ -5046,18 +5077,18 @@ const HERB_XREF = {
 <div id="disclaimer-overlay">
   <div id="disclaimer-box">
     <div class="leaf-icon">🌿</div>
-    <h2>Welcome to Nanna's Herbal Apothecary</h2>
-    <p>Before you begin, please read and acknowledge the following important information:</p>
+    <h2 data-i18n="disclaimer_title">Welcome to Nanna's Herbal Apothecary</h2>
+    <p data-i18n="disclaimer_intro">Before you begin, please read and acknowledge the following important information:</p>
     <ul>
-      <li>This site provides <strong>educational information only</strong> and is not a substitute for professional medical advice, diagnosis, or treatment.</li>
-      <li>Herbal remedies may <strong>interact with prescription medications</strong>. Always consult your doctor or pharmacist before making any changes.</li>
-      <li>Never stop taking prescribed medications without speaking with your healthcare provider first.</li>
-      <li>Information on this site is provided by an <strong>RN-trained herbalist</strong> for wellness education purposes.</li>
-      <li>Individual results may vary. What works for one person may not work for another.</li>
+      <li data-i18n="disclaimer_li1">This site provides <strong>educational information only</strong> and is not a substitute for professional medical advice, diagnosis, or treatment.</li>
+      <li data-i18n="disclaimer_li2">Herbal remedies may <strong>interact with prescription medications</strong>. Always consult your doctor or pharmacist before making any changes.</li>
+      <li data-i18n="disclaimer_li3">Never stop taking prescribed medications without speaking with your healthcare provider first.</li>
+      <li data-i18n="disclaimer_li4">Information on this site is provided by an <strong>RN-trained herbalist</strong> for wellness education purposes.</li>
+      <li data-i18n="disclaimer_li5">Individual results may vary. What works for one person may not work for another.</li>
     </ul>
-    <li><strong>Affiliate Disclosure:</strong> Some product links on this site are affiliate links. Nanna's Herbal Apothecary may earn a small commission if you purchase through these links — at no extra cost to you. This helps keep this free resource available to everyone.</li>
-    <p style="font-size:0.8rem; color:var(--text-light);">By clicking below, you confirm you have read and agree to these terms and our <u>Terms of Service</u>.</p>
-    <button id="agree-btn" onclick="closeDisclaimer()">I Understand & Agree — Enter the Apothecary 🌿</button>
+    <li data-i18n="disclaimer_affiliate"><strong>Affiliate Disclosure:</strong> Some product links on this site are affiliate links. Nanna's Herbal Apothecary may earn a small commission if you purchase through these links — at no extra cost to you. This helps keep this free resource available to everyone.</li>
+    <p style="font-size:0.8rem; color:var(--text-light);" data-i18n="disclaimer_agree_text">By clicking below, you confirm you have read and agree to these terms and our <u>Terms of Service</u>.</p>
+    <button id="agree-btn" onclick="closeDisclaimer()" data-i18n="disclaimer_btn">I Understand & Agree — Enter the Apothecary 🌿</button>
   </div>
 </div>
 
@@ -5067,21 +5098,27 @@ const HERB_XREF = {
     <div class="logo-circle">🌿</div>
     <div class="brand-text">
       <h1>Nanna's Herbal Apothecary</h1>
-      <p>Nature's Wisdom · Modern Wellness · Trusted Care</p>
+      <p data-i18n="tagline">Nature's Wisdom · Modern Wellness · Trusted Care</p>
     </div>
   </div>
-  <div class="header-badge">
-    <span>Founded & Reviewed by</span>
-    <strong>Iola Herschell, RN</strong>
+  <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" id="lang-es" onclick="setLanguage('es')">ES</button>
+    </div>
+    <div class="header-badge">
+      <span data-i18n="founded_by">Founded & Reviewed by</span>
+      <strong>Iola Herschell, RN</strong>
+    </div>
   </div>
 </header>
 
 <!-- TABS -->
 <div class="tabs">
-  <button class="tab-btn active" onclick="showTab('home')">🏡 Home</button>
-  <button class="tab-btn" onclick="showTab('lookup')">💊→🌿 Find Alternatives</button>
-  <button class="tab-btn" onclick="showTab('recipes')">📜 Recipe Builder</button>
-  <button class="tab-btn" onclick="showTab('about')">🌸 About Nanna</button>
+  <button class="tab-btn active" onclick="showTab('home')" data-i18n="tab_home">🏡 Home</button>
+  <button class="tab-btn" onclick="showTab('lookup')" data-i18n="tab_lookup">💊→🌿 Find Alternatives</button>
+  <button class="tab-btn" onclick="showTab('recipes')" data-i18n="tab_recipes">📜 Recipe Builder</button>
+  <button class="tab-btn" onclick="showTab('about')" data-i18n="tab_about">🌸 About Nanna</button>
 </div>
 
 <!-- ==================== HOME ==================== -->
@@ -5089,21 +5126,21 @@ const HERB_XREF = {
 <div id="home" class="section active">
   <div class="hero" style="padding:2rem 1.5rem 1.5rem;">
     <h2 style="margin-bottom:0.5rem;">🌿 Nanna's Herbal Apothecary</h2>
-    <p style="margin-bottom:1.25rem;font-size:1rem;">Discover evidence-based herbal alternatives to common prescriptions — guided by an RN-trained herbalist.</p>
+    <p style="margin-bottom:1.25rem;font-size:1rem;" data-i18n="hero_subtitle">Discover evidence-based herbal alternatives to common prescriptions — guided by an RN-trained herbalist.</p>
 
     <!-- SEARCH TOGGLE -->
     <div class="home-search-box">
       <div class="toggle-row">
-        <button class="toggle-btn active" id="home-toggle-med" onclick="homeSetMode('med')">💊 Medication</button>
-        <button class="toggle-btn" id="home-toggle-herb" onclick="homeSetMode('herb')">🌿 Herb</button>
+        <button class="toggle-btn active" id="home-toggle-med" onclick="homeSetMode('med')" data-i18n="btn_medication">💊 Medication</button>
+        <button class="toggle-btn" id="home-toggle-herb" onclick="homeSetMode('herb')" data-i18n="btn_herb">🌿 Herb</button>
       </div>
       <div class="input-row" style="margin-top:0.75rem;">
-        <input type="text" id="home-search-input" placeholder="Type a medication name..." oninput="homeFilterPills(this.value)" onkeydown="if(event.key==='Enter')homeDoSearch()" />
-        <button class="btn-primary" onclick="homeDoSearch()">Search →</button>
+        <input type="text" id="home-search-input" placeholder="Type a medication name..." oninput="homeFilterPills(this.value)" onkeydown="if(event.key==='Enter')homeDoSearch()" data-i18n-placeholder="placeholder_med" />
+        <button class="btn-primary" onclick="homeDoSearch()" data-i18n="btn_search">Search →</button>
       </div>
       <!-- Med pills -->
       <div class="common-pills" id="home-med-pills">
-        <span style="font-size:0.78rem;color:var(--text-light);">Top 20 Most Prescribed:</span><br/>
+        <span style="font-size:0.78rem;color:var(--text-light);" data-i18n="top20_med">Top 20 Most Prescribed:</span><br/>
         <span class="pill" onclick="quickSearch('Lisinopril')">Lisinopril</span>
         <span class="pill" onclick="quickSearch('Levothyroxine')">Levothyroxine</span>
         <span class="pill" onclick="quickSearch('Atorvastatin')">Atorvastatin</span>
@@ -5127,7 +5164,7 @@ const HERB_XREF = {
       </div>
       <!-- Herb pills -->
       <div class="common-pills" id="home-herb-pills" style="display:none;">
-        <span style="font-size:0.78rem;color:var(--text-light);">Top 20 Popular Herbs:</span><br/>
+        <span style="font-size:0.78rem;color:var(--text-light);" data-i18n="top20_herbs">Top 20 Popular Herbs:</span><br/>
         <span class="pill herb-pill" onclick="quickSearchHerb('hibiscus')">Hibiscus</span>
         <span class="pill herb-pill" onclick="quickSearchHerb('berberine')">Berberine</span>
         <span class="pill herb-pill" onclick="quickSearchHerb('valerian')">Valerian Root</span>
@@ -5156,30 +5193,30 @@ const HERB_XREF = {
 
   <div class="disclaimer-bar">
     <span class="icon">⚠️</span>
-    <span><strong>Educational Use Only:</strong> Information on this site is for wellness education and does not constitute medical advice. Always consult your healthcare provider before changing or stopping any medication.</span>
+    <span data-i18n="edu_only_home"><strong>Educational Use Only:</strong> Information on this site is for wellness education and does not constitute medical advice. Always consult your healthcare provider before changing or stopping any medication.</span>
   </div>
 </div>
 
 <!-- ==================== FIND ALTERNATIVES (unified) ==================== -->
 <div id="lookup" class="section">
   <div class="search-card">
-    <h2>💊→🌿 Find Herbal Alternatives</h2>
-    <p class="subtitle">Search by medication name <em>or</em> by herb — then explore the science behind each alternative</p>
+    <h2 data-i18n="lookup_title">💊→🌿 Find Herbal Alternatives</h2>
+    <p class="subtitle" data-i18n="lookup_subtitle">Search by medication name <em>or</em> by herb — then explore the science behind each alternative</p>
 
     <!-- MODE TOGGLE -->
     <div class="toggle-row" style="margin-bottom:0.85rem;">
-      <button class="toggle-btn active" id="lookup-toggle-med" onclick="lookupSetMode('med')">💊 Medication</button>
-      <button class="toggle-btn" id="lookup-toggle-herb" onclick="lookupSetMode('herb')">🌿 Herb</button>
+      <button class="toggle-btn active" id="lookup-toggle-med" onclick="lookupSetMode('med')" data-i18n="btn_medication">💊 Medication</button>
+      <button class="toggle-btn" id="lookup-toggle-herb" onclick="lookupSetMode('herb')" data-i18n="btn_herb">🌿 Herb</button>
     </div>
 
     <!-- MED SEARCH -->
     <div id="lookup-med-panel">
       <div class="input-row">
-        <input type="text" id="search-input" placeholder="e.g. Lisinopril, Metformin, anxiety, high blood pressure..." oninput="lookupFilterMedPills(this.value)" />
-        <button class="btn-primary" onclick="doLookup()">Find Alternatives</button>
+        <input type="text" id="search-input" placeholder="e.g. Lisinopril, Metformin, anxiety, high blood pressure..." oninput="lookupFilterMedPills(this.value)" data-i18n-placeholder="placeholder_med_lookup" />
+        <button class="btn-primary" onclick="doLookup()" data-i18n="btn_find_alternatives">Find Alternatives</button>
       </div>
       <div class="common-pills" id="lookup-med-pills">
-        <span style="font-size:0.78rem;color:var(--text-light);">Top 20 Most Prescribed:</span><br/>
+        <span style="font-size:0.78rem;color:var(--text-light);" data-i18n="top20_med">Top 20 Most Prescribed:</span><br/>
         <span class="pill" onclick="quickSearch('Lisinopril')">Lisinopril</span>
         <span class="pill" onclick="quickSearch('Levothyroxine')">Levothyroxine</span>
         <span class="pill" onclick="quickSearch('Atorvastatin')">Atorvastatin</span>
@@ -5206,13 +5243,13 @@ const HERB_XREF = {
     <!-- HERB SEARCH -->
     <div id="lookup-herb-panel" style="display:none;">
       <div class="input-row">
-        <input type="text" id="herb-search-input" placeholder="e.g. turmeric, valerian, ashwagandha..." oninput="lookupFilterHerbPills(this.value)" />
-        <button class="btn-primary" onclick="doHerbLookup()">Show Herb Profile</button>
+        <input type="text" id="herb-search-input" placeholder="e.g. turmeric, valerian, ashwagandha..." oninput="lookupFilterHerbPills(this.value)" data-i18n-placeholder="placeholder_herb" />
+        <button class="btn-primary" onclick="doHerbLookup()" data-i18n="btn_herb_profile">Show Herb Profile</button>
       </div>
       <!-- Fuzzy spell-check suggestion -->
       <div id="herb-fuzzy-suggest" style="display:none;margin:0.4rem 0 0.6rem;font-size:0.85rem;color:var(--sage-dark);"></div>
       <div class="common-pills" id="lookup-herb-pills">
-        <span style="font-size:0.78rem;color:var(--text-light);">Top 20 Popular Herbs:</span><br/>
+        <span style="font-size:0.78rem;color:var(--text-light);" data-i18n="top20_herbs">Top 20 Popular Herbs:</span><br/>
         <span class="pill herb-pill" onclick="quickSearchHerb('hibiscus')">Hibiscus</span>
         <span class="pill herb-pill" onclick="quickSearchHerb('berberine')">Berberine</span>
         <span class="pill herb-pill" onclick="quickSearchHerb('valerian')">Valerian Root</span>
@@ -5240,43 +5277,43 @@ const HERB_XREF = {
   <!-- Loading spinner (shared) -->
   <div id="loading">
     <div class="spinner"></div>
-    <p>Nanna is consulting her herbal library...</p>
+    <p data-i18n="loading_msg">Nanna is consulting her herbal library...</p>
   </div>
 
   <!-- MED RESULTS -->
   <div id="results">
     <div class="results-header">
-      <h3>Top 3 Herbal Alternatives for: <span id="results-drug-name"></span></h3>
-      <button class="btn-secondary" onclick="clearResults()">← New Search</button>
+      <h3><span data-i18n="results_heading">Top 3 Herbal Alternatives for:</span> <span id="results-drug-name"></span></h3>
+      <button class="btn-secondary" onclick="clearResults()" data-i18n="btn_new_search">← New Search</button>
     </div>
     <div class="disclaimer-bar">
       <span class="icon">⚠️</span>
-      <span>These alternatives are documented for educational purposes only. Do not stop any prescription without consulting your doctor. Discuss all herbal use with your healthcare provider.</span>
+      <span data-i18n="results_disclaimer">These alternatives are documented for educational purposes only. Do not stop any prescription without consulting your doctor. Discuss all herbal use with your healthcare provider.</span>
     </div>
     <div id="remedy-cards"></div>
     <div id="shopping-section">
       <div class="shopping-header">
-        <h3>🛒 Recommended Shopping List</h3>
+        <h3 data-i18n="shopping_title">🛒 Recommended Shopping List</h3>
         <div style="display:flex;gap:0.6rem;align-items:center;">
-          <span style="font-size:0.8rem;color:var(--text-light);">Links open trusted herbal retailers</span>
-          <button class="btn-primary" style="font-size:0.82rem;padding:0.5rem 1rem;" onclick="orderAll()">Shop All Items</button>
+          <span style="font-size:0.8rem;color:var(--text-light);" data-i18n="shopping_links">Links open trusted herbal retailers</span>
+          <button class="btn-primary" style="font-size:0.82rem;padding:0.5rem 1rem;" onclick="orderAll()" data-i18n="btn_shop_all">Shop All Items</button>
         </div>
       </div>
       <table class="shopping-table">
         <thead>
           <tr>
-            <th>Ingredient</th>
-            <th>Form</th>
-            <th>Qty</th>
-            <th>Est. Price</th>
-            <th>Supplier</th>
-            <th>Action</th>
+            <th data-i18n="col_ingredient">Ingredient</th>
+            <th data-i18n="col_form">Form</th>
+            <th data-i18n="col_qty">Qty</th>
+            <th data-i18n="col_price">Est. Price</th>
+            <th data-i18n="col_supplier">Supplier</th>
+            <th data-i18n="col_action">Action</th>
           </tr>
         </thead>
         <tbody id="shopping-body"></tbody>
         <tfoot>
           <tr class="total-row">
-            <td colspan="3"><strong>Estimated Total</strong></td>
+            <td colspan="3"><strong data-i18n="estimated_total">Estimated Total</strong></td>
             <td id="total-price" colspan="3"></td>
           </tr>
         </tfoot>
@@ -5290,12 +5327,12 @@ const HERB_XREF = {
   <!-- HERB PROFILE RESULTS -->
   <div id="herb-results" style="display:none;">
     <div class="results-header">
-      <h3>🌿 Herb Profile: <span id="herb-results-name"></span></h3>
-      <button class="btn-secondary" onclick="clearHerbResults()">← Back to Herbs</button>
+      <h3><span data-i18n="herb_profile_heading">🌿 Herb Profile:</span> <span id="herb-results-name"></span></h3>
+      <button class="btn-secondary" onclick="clearHerbResults()" data-i18n="btn_back_herbs">← Back to Herbs</button>
     </div>
     <div class="disclaimer-bar">
       <span class="icon">⚠️</span>
-      <span>Research summaries represent findings from published studies. Always discuss herbal alternatives with your prescribing physician before making any medication changes.</span>
+      <span data-i18n="herb_results_disclaimer">Research summaries represent findings from published studies. Always discuss herbal alternatives with your prescribing physician before making any medication changes.</span>
     </div>
     <div id="herb-profile-content"></div>
   </div>
@@ -5304,44 +5341,44 @@ const HERB_XREF = {
 <!-- ==================== RECIPE BUILDER ==================== -->
 <div id="recipes" class="section">
   <div class="recipe-form">
-    <h2>📜 Herbal Recipe Builder</h2>
+    <h2 data-i18n="recipe_title">📜 Herbal Recipe Builder</h2>
     <div class="form-grid">
       <div class="form-group">
-        <label>Recipe Type</label>
+        <label data-i18n="recipe_type_label">Recipe Type</label>
         <select id="recipe-type">
-          <option value="tincture">Tincture</option>
-          <option value="tea">Herbal Tea Blend</option>
-          <option value="essential-oil">Essential Oil / Infusion</option>
-          <option value="salve">Salve / Balm</option>
-          <option value="capsule">Encapsulated Powder</option>
-          <option value="syrup">Herbal Syrup</option>
+          <option value="tincture" data-i18n="recipe_opt_tincture">Tincture</option>
+          <option value="tea" data-i18n="recipe_opt_tea">Herbal Tea Blend</option>
+          <option value="essential-oil" data-i18n="recipe_opt_oil">Essential Oil / Infusion</option>
+          <option value="salve" data-i18n="recipe_opt_salve">Salve / Balm</option>
+          <option value="capsule" data-i18n="recipe_opt_capsule">Encapsulated Powder</option>
+          <option value="syrup" data-i18n="recipe_opt_syrup">Herbal Syrup</option>
         </select>
       </div>
       <div class="form-group">
-        <label>Health Goal / Condition</label>
-        <input type="text" id="recipe-condition" placeholder="e.g. sleep support, anxiety, immune boost..." />
+        <label data-i18n="recipe_goal_label">Health Goal / Condition</label>
+        <input type="text" id="recipe-condition" placeholder="e.g. sleep support, anxiety, immune boost..." data-i18n-placeholder="placeholder_goal" />
       </div>
       <div class="form-group">
-        <label>Preferred Herbs (optional)</label>
-        <input type="text" id="recipe-herbs" placeholder="e.g. lavender, valerian, chamomile..." />
+        <label data-i18n="recipe_herbs_label">Preferred Herbs (optional)</label>
+        <input type="text" id="recipe-herbs" placeholder="e.g. lavender, valerian, chamomile..." data-i18n-placeholder="placeholder_herbs_pref" />
       </div>
       <div class="form-group">
-        <label>Allergies or Sensitivities</label>
-        <input type="text" id="recipe-allergies" placeholder="e.g. ragweed, nuts, alcohol-free..." />
+        <label data-i18n="recipe_allergy_label">Allergies or Sensitivities</label>
+        <input type="text" id="recipe-allergies" placeholder="e.g. ragweed, nuts, alcohol-free..." data-i18n-placeholder="placeholder_allergies" />
       </div>
       <div class="form-group" style="grid-column:1/-1;">
-        <label>Additional Notes</label>
-        <textarea id="recipe-notes" placeholder="Any other details: age, weight, current medications, lifestyle factors..."></textarea>
+        <label data-i18n="recipe_notes_label">Additional Notes</label>
+        <textarea id="recipe-notes" placeholder="Any other details: age, weight, current medications, lifestyle factors..." data-i18n-placeholder="placeholder_notes"></textarea>
       </div>
     </div>
     <div style="margin-top:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
-      <button class="btn-primary" onclick="buildRecipe()">🌿 Build My Recipe</button>
-      <button class="btn-secondary" onclick="clearRecipe()">Clear Form</button>
+      <button class="btn-primary" onclick="buildRecipe()" data-i18n="btn_build_recipe">🌿 Build My Recipe</button>
+      <button class="btn-secondary" onclick="clearRecipe()" data-i18n="btn_clear_form">Clear Form</button>
     </div>
   </div>
   <div id="loading-recipe" style="display:none;text-align:center;padding:2.5rem;">
     <div class="spinner"></div>
-    <p style="font-family:'Lora',serif;font-style:italic;color:var(--text-light);">Mixing your herbal recipe...</p>
+    <p style="font-family:'Lora',serif;font-style:italic;color:var(--text-light);" data-i18n="loading_recipe">Mixing your herbal recipe...</p>
   </div>
   <div id="recipe-output" class="recipe-output"></div>
 </div>
@@ -5349,10 +5386,10 @@ const HERB_XREF = {
 <!-- ==================== ABOUT ==================== -->
 <div id="about" class="section">
   <div class="about-card">
-    <h2>🌸 Meet Nanna — Iola Herschell, RN</h2>
-    <p>Iola Herschell is a licensed Registered Nurse who devoted over <strong>25 years of her life to clinical nursing practice</strong>, caring for patients across a wide range of settings with deep compassion and medical expertise. After retiring from her nursing career, Iola's two greatest passions — <em>helping others and her love of gardening</em> — naturally converged on a path she hadn't expected: the ancient and deeply personal world of home remedies and herbal medicine.</p>
-    <p>What began as a personal quest to replace her own family's prescription medications with documented, carefully researched herbal alternatives became a mission. Through dedicated herbalist coursework, hands-on experience cultivating medicinal plants, and applying her 25+ years of clinical knowledge, Iola built a body of work that is both medically grounded and rooted in the warm, commonsense wisdom that only comes from a lifetime of caring for people.</p>
-    <p><strong>Nanna's Herbal Apothecary was born from that mission</strong> — to share that knowledge with families, wellness seekers, and anyone who wants safer, more natural options without sacrificing credibility or safety. Every recommendation on this site is tied to peer-reviewed medical research and reviewed through Iola's clinical RN lens.</p>
+    <h2 data-i18n="about_title">🌸 Meet Nanna — Iola Herschell, RN</h2>
+    <p data-i18n="about_p1">Iola Herschell is a licensed Registered Nurse who devoted over <strong>25 years of her life to clinical nursing practice</strong>, caring for patients across a wide range of settings with deep compassion and medical expertise. After retiring from her nursing career, Iola's two greatest passions — <em>helping others and her love of gardening</em> — naturally converged on a path she hadn't expected: the ancient and deeply personal world of home remedies and herbal medicine.</p>
+    <p data-i18n="about_p2">What began as a personal quest to replace her own family's prescription medications with documented, carefully researched herbal alternatives became a mission. Through dedicated herbalist coursework, hands-on experience cultivating medicinal plants, and applying her 25+ years of clinical knowledge, Iola built a body of work that is both medically grounded and rooted in the warm, commonsense wisdom that only comes from a lifetime of caring for people.</p>
+    <p data-i18n="about_p3"><strong>Nanna's Herbal Apothecary was born from that mission</strong> — to share that knowledge with families, wellness seekers, and anyone who wants safer, more natural options without sacrificing credibility or safety. Every recommendation on this site is tied to peer-reviewed medical research and reviewed through Iola's clinical RN lens.</p>
     <div style="background: linear-gradient(135deg, var(--cream-dark), var(--parchment)); border-radius: 12px; padding: 1.2rem 1.5rem; margin: 1.25rem 0; border-left: 4px solid var(--sage);">
       <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.05rem; color: var(--brown); margin: 0; line-height: 1.7;">"I spent 25 years watching patients struggle with medication side effects and rising costs. There is a better way — and nature has been providing it for thousands of years. My job is to help you find it safely."</p>
       <p style="font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text-light); margin: 0.5rem 0 0; font-weight: 600;">— Iola Herschell, RN · Founder, Nanna's Herbal Apothecary</p>
@@ -5367,29 +5404,29 @@ const HERB_XREF = {
     </div>
   </div>
   <div class="about-card" style="background: linear-gradient(135deg, var(--cream-dark), var(--parchment));">
-    <h2>⚖️ Our Medical & Legal Commitment</h2>
-    <p>Iola's 25-year RN background means she understands medication risks, drug interactions, and the importance of clinical safety better than almost any herbal wellness site. That's why we hold ourselves to a higher standard:</p>
+    <h2 data-i18n="commit_title">⚖️ Our Medical & Legal Commitment</h2>
+    <p data-i18n="commit_intro">Iola's 25-year RN background means she understands medication risks, drug interactions, and the importance of clinical safety better than almost any herbal wellness site. That's why we hold ourselves to a higher standard:</p>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem;">
       <div style="background: white; border-radius: 10px; padding: 1.1rem; border: 1px solid var(--border);">
         <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">🔗</div>
-        <strong style="font-family: 'Playfair Display', serif; color: var(--brown); display: block; margin-bottom: 0.3rem;">Cited Research Only</strong>
-        <p style="font-size: 0.82rem; font-family: 'Lora', serif; color: var(--text-mid); margin: 0; line-height: 1.6;">Every herbal alternative links to its PubMed, Cochrane, or peer-reviewed source. No anecdote without evidence.</p>
+        <strong style="font-family: 'Playfair Display', serif; color: var(--brown); display: block; margin-bottom: 0.3rem;" data-i18n="commit_cited">Cited Research Only</strong>
+        <p style="font-size: 0.82rem; font-family: 'Lora', serif; color: var(--text-mid); margin: 0; line-height: 1.6;" data-i18n="commit_cited_desc">Every herbal alternative links to its PubMed, Cochrane, or peer-reviewed source. No anecdote without evidence.</p>
       </div>
       <div style="background: white; border-radius: 10px; padding: 1.1rem; border: 1px solid var(--border);">
         <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">👩‍⚕️</div>
-        <strong style="font-family: 'Playfair Display', serif; color: var(--brown); display: block; margin-bottom: 0.3rem;">RN-Reviewed Content</strong>
-        <p style="font-size: 0.82rem; font-family: 'Lora', serif; color: var(--text-mid); margin: 0; line-height: 1.6;">All information is prepared and reviewed by Iola Herschell, RN — not AI-generated wellness content.</p>
+        <strong style="font-family: 'Playfair Display', serif; color: var(--brown); display: block; margin-bottom: 0.3rem;" data-i18n="commit_rn">RN-Reviewed Content</strong>
+        <p style="font-size: 0.82rem; font-family: 'Lora', serif; color: var(--text-mid); margin: 0; line-height: 1.6;" data-i18n="commit_rn_desc">All information is prepared and reviewed by Iola Herschell, RN — not AI-generated wellness content.</p>
       </div>
       <div style="background: white; border-radius: 10px; padding: 1.1rem; border: 1px solid var(--border);">
         <div style="font-size: 1.5rem; margin-bottom: 0.4rem;">🩺</div>
-        <strong style="font-family: 'Playfair Display', serif; color: var(--brown); display: block; margin-bottom: 0.3rem;">Always: See Your Doctor</strong>
-        <p style="font-size: 0.82rem; font-family: 'Lora', serif; color: var(--text-mid); margin: 0; line-height: 1.6;">We always recommend discussing any herbal alternative with your prescribing physician before making changes.</p>
+        <strong style="font-family: 'Playfair Display', serif; color: var(--brown); display: block; margin-bottom: 0.3rem;" data-i18n="commit_doctor">Always: See Your Doctor</strong>
+        <p style="font-size: 0.82rem; font-family: 'Lora', serif; color: var(--text-mid); margin: 0; line-height: 1.6;" data-i18n="commit_doctor_desc">We always recommend discussing any herbal alternative with your prescribing physician before making changes.</p>
       </div>
     </div>
   </div>
   <div class="disclaimer-bar" style="margin-bottom:0;">
     <span class="icon">⚖️</span>
-    <span><strong>Important:</strong> Nanna's Herbal Apothecary is an educational resource. Content does not constitute medical advice and should not replace consultation with a licensed healthcare provider. Always speak with your doctor before making changes to any treatment plan.</span>
+    <span data-i18n="about_disclaimer"><strong>Important:</strong> Nanna's Herbal Apothecary is an educational resource. Content does not constitute medical advice and should not replace consultation with a licensed healthcare provider. Always speak with your doctor before making changes to any treatment plan.</span>
   </div>
 </div>
 
@@ -5398,10 +5435,12 @@ const HERB_XREF = {
 <!-- FOOTER -->
 <footer>
   <p class="footer-brand">🌿 Nanna's Herbal Apothecary</p>
-  <p>Nature's Wisdom · Modern Wellness · Trusted Care<br/>
-  For educational purposes only. Not medical advice.<br/>
-  © 2025 Nanna's Herbal Apothecary. All rights reserved.</p>
-  <p style="font-size:0.75rem;opacity:0.7;margin-top:0.5rem;">
+  <p>
+    <span data-i18n="tagline">Nature's Wisdom · Modern Wellness · Trusted Care</span><br/>
+    <span data-i18n="footer_edu">For educational purposes only. Not medical advice.</span><br/>
+    © 2025 Nanna's Herbal Apothecary. All rights reserved.
+  </p>
+  <p style="font-size:0.75rem;opacity:0.7;margin-top:0.5rem;" data-i18n="footer_affiliate">
     <strong>Affiliate Disclosure:</strong> Nanna's Herbal Apothecary participates in affiliate programs with iHerb, Amazon Associates, Mountain Rose Herbs, and Starwest Botanicals.
     When you click "Buy →" and make a purchase, we may earn a small commission at no extra cost to you.
     This supports Iola's mission to keep this educational resource free for everyone.
@@ -6464,7 +6503,251 @@ document.addEventListener('DOMContentLoaded', () => {
   if (herbInp) herbInp.addEventListener('keydown', e => {
     if (e.key === 'Enter') doHerbLookup();
   });
+  // Apply saved language preference
+  const savedLang = localStorage.getItem('nannas_lang') || 'en';
+  setLanguage(savedLang, true);
 });
+
+// ================================================================
+// LANGUAGE / TRANSLATION SYSTEM
+// ================================================================
+const TRANSLATIONS = {
+  en: {
+    founded_by: "Founded & Reviewed by",
+    tagline: "Nature's Wisdom · Modern Wellness · Trusted Care",
+
+    // Disclaimer modal
+    disclaimer_title: "Welcome to Nanna's Herbal Apothecary",
+    disclaimer_intro: "Before you begin, please read and acknowledge the following important information:",
+    disclaimer_li1: "This site provides <strong>educational information only</strong> and is not a substitute for professional medical advice, diagnosis, or treatment.",
+    disclaimer_li2: "Herbal remedies may <strong>interact with prescription medications</strong>. Always consult your doctor or pharmacist before making any changes.",
+    disclaimer_li3: "Never stop taking prescribed medications without speaking with your healthcare provider first.",
+    disclaimer_li4: "Information on this site is provided by an <strong>RN-trained herbalist</strong> for wellness education purposes.",
+    disclaimer_li5: "Individual results may vary. What works for one person may not work for another.",
+    disclaimer_affiliate: "<strong>Affiliate Disclosure:</strong> Some product links on this site are affiliate links. Nanna's Herbal Apothecary may earn a small commission if you purchase through these links — at no extra cost to you. This helps keep this free resource available to everyone.",
+    disclaimer_agree_text: "By clicking below, you confirm you have read and agree to these terms and our <u>Terms of Service</u>.",
+    disclaimer_btn: "I Understand & Agree — Enter the Apothecary 🌿",
+
+    // Nav tabs
+    tab_home: "🏡 Home",
+    tab_lookup: "💊→🌿 Find Alternatives",
+    tab_recipes: "📜 Recipe Builder",
+    tab_about: "🌸 About Nanna",
+
+    // Home / hero
+    hero_subtitle: "Discover evidence-based herbal alternatives to common prescriptions — guided by an RN-trained herbalist.",
+    btn_medication: "💊 Medication",
+    btn_herb: "🌿 Herb",
+    btn_search: "Search →",
+    placeholder_med: "Type a medication name...",
+    top20_med: "Top 20 Most Prescribed:",
+    top20_herbs: "Top 20 Popular Herbs:",
+    edu_only_home: "<strong>Educational Use Only:</strong> Information on this site is for wellness education and does not constitute medical advice. Always consult your healthcare provider before changing or stopping any medication.",
+
+    // Lookup tab
+    lookup_title: "💊→🌿 Find Herbal Alternatives",
+    lookup_subtitle: "Search by medication name <em>or</em> by herb — then explore the science behind each alternative",
+    placeholder_med_lookup: "e.g. Lisinopril, Metformin, anxiety, high blood pressure...",
+    btn_find_alternatives: "Find Alternatives",
+    placeholder_herb: "e.g. turmeric, valerian, ashwagandha...",
+    btn_herb_profile: "Show Herb Profile",
+
+    // Loading / results
+    loading_msg: "Nanna is consulting her herbal library...",
+    results_heading: "Top 3 Herbal Alternatives for:",
+    btn_new_search: "← New Search",
+    results_disclaimer: "These alternatives are documented for educational purposes only. Do not stop any prescription without consulting your doctor. Discuss all herbal use with your healthcare provider.",
+    herb_profile_heading: "🌿 Herb Profile:",
+    btn_back_herbs: "← Back to Herbs",
+    herb_results_disclaimer: "Research summaries represent findings from published studies. Always discuss herbal alternatives with your prescribing physician before making any medication changes.",
+
+    // Shopping table
+    shopping_title: "🛒 Recommended Shopping List",
+    shopping_links: "Links open trusted herbal retailers",
+    btn_shop_all: "Shop All Items",
+    col_ingredient: "Ingredient",
+    col_form: "Form",
+    col_qty: "Qty",
+    col_price: "Est. Price",
+    col_supplier: "Supplier",
+    col_action: "Action",
+    estimated_total: "Estimated Total",
+
+    // Recipe builder
+    recipe_title: "📜 Herbal Recipe Builder",
+    recipe_type_label: "Recipe Type",
+    recipe_opt_tincture: "Tincture",
+    recipe_opt_tea: "Herbal Tea Blend",
+    recipe_opt_oil: "Essential Oil / Infusion",
+    recipe_opt_salve: "Salve / Balm",
+    recipe_opt_capsule: "Encapsulated Powder",
+    recipe_opt_syrup: "Herbal Syrup",
+    recipe_goal_label: "Health Goal / Condition",
+    placeholder_goal: "e.g. sleep support, anxiety, immune boost...",
+    recipe_herbs_label: "Preferred Herbs (optional)",
+    placeholder_herbs_pref: "e.g. lavender, valerian, chamomile...",
+    recipe_allergy_label: "Allergies or Sensitivities",
+    placeholder_allergies: "e.g. ragweed, nuts, alcohol-free...",
+    recipe_notes_label: "Additional Notes",
+    placeholder_notes: "Any other details: age, weight, current medications, lifestyle factors...",
+    btn_build_recipe: "🌿 Build My Recipe",
+    btn_clear_form: "Clear Form",
+    loading_recipe: "Mixing your herbal recipe...",
+
+    // About
+    about_title: "🌸 Meet Nanna — Iola Herschell, RN",
+    about_p1: "Iola Herschell is a licensed Registered Nurse who devoted over <strong>25 years of her life to clinical nursing practice</strong>, caring for patients across a wide range of settings with deep compassion and medical expertise. After retiring from her nursing career, Iola's two greatest passions — <em>helping others and her love of gardening</em> — naturally converged on a path she hadn't expected: the ancient and deeply personal world of home remedies and herbal medicine.",
+    about_p2: "What began as a personal quest to replace her own family's prescription medications with documented, carefully researched herbal alternatives became a mission. Through dedicated herbalist coursework, hands-on experience cultivating medicinal plants, and applying her 25+ years of clinical knowledge, Iola built a body of work that is both medically grounded and rooted in the warm, commonsense wisdom that only comes from a lifetime of caring for people.",
+    about_p3: "<strong>Nanna's Herbal Apothecary was born from that mission</strong> — to share that knowledge with families, wellness seekers, and anyone who wants safer, more natural options without sacrificing credibility or safety. Every recommendation on this site is tied to peer-reviewed medical research and reviewed through Iola's clinical RN lens.",
+    commit_title: "⚖️ Our Medical & Legal Commitment",
+    commit_intro: "Iola's 25-year RN background means she understands medication risks, drug interactions, and the importance of clinical safety better than almost any herbal wellness site. That's why we hold ourselves to a higher standard:",
+    commit_cited: "Cited Research Only",
+    commit_cited_desc: "Every herbal alternative links to its PubMed, Cochrane, or peer-reviewed source. No anecdote without evidence.",
+    commit_rn: "RN-Reviewed Content",
+    commit_rn_desc: "All information is prepared and reviewed by Iola Herschell, RN — not AI-generated wellness content.",
+    commit_doctor: "Always: See Your Doctor",
+    commit_doctor_desc: "We always recommend discussing any herbal alternative with your prescribing physician before making changes.",
+    about_disclaimer: "<strong>Important:</strong> Nanna's Herbal Apothecary is an educational resource. Content does not constitute medical advice and should not replace consultation with a licensed healthcare provider. Always speak with your doctor before making changes to any treatment plan.",
+
+    // Footer
+    footer_edu: "For educational purposes only. Not medical advice.",
+    footer_affiliate: "<strong>Affiliate Disclosure:</strong> Nanna's Herbal Apothecary participates in affiliate programs with iHerb, Amazon Associates, Mountain Rose Herbs, and Starwest Botanicals. When you click \"Buy →\" and make a purchase, we may earn a small commission at no extra cost to you. This supports Iola's mission to keep this educational resource free for everyone. As an Amazon Associate, Nanna's Herbal Apothecary earns from qualifying purchases.",
+  },
+
+  es: {
+    founded_by: "Fundada y Revisada por",
+    tagline: "Sabiduría Natural · Bienestar Moderno · Cuidado de Confianza",
+
+    // Disclaimer modal
+    disclaimer_title: "Bienvenido a Nanna's Herbal Apothecary",
+    disclaimer_intro: "Antes de comenzar, lea y reconozca la siguiente información importante:",
+    disclaimer_li1: "Este sitio proporciona <strong>información educativa únicamente</strong> y no reemplaza el consejo médico profesional, diagnóstico ni tratamiento.",
+    disclaimer_li2: "Los remedios herbales pueden <strong>interactuar con medicamentos recetados</strong>. Siempre consulte a su médico o farmacéutico antes de hacer cambios.",
+    disclaimer_li3: "Nunca deje de tomar medicamentos recetados sin hablar primero con su proveedor de salud.",
+    disclaimer_li4: "La información en este sitio es proporcionada por una <strong>herbalista entrenada como enfermera registrada</strong> con fines educativos de bienestar.",
+    disclaimer_li5: "Los resultados individuales pueden variar. Lo que funciona para una persona puede no funcionar para otra.",
+    disclaimer_affiliate: "<strong>Divulgación de Afiliados:</strong> Algunos enlaces de productos en este sitio son enlaces de afiliados. Nanna's Herbal Apothecary puede ganar una pequeña comisión si compra a través de estos enlaces — sin costo adicional para usted. Esto ayuda a mantener este recurso gratuito disponible para todos.",
+    disclaimer_agree_text: "Al hacer clic abajo, confirma que ha leído y acepta estos términos y nuestros <u>Términos de Servicio</u>.",
+    disclaimer_btn: "Entiendo y Acepto — Entrar a la Botica 🌿",
+
+    // Nav tabs
+    tab_home: "🏡 Inicio",
+    tab_lookup: "💊→🌿 Buscar Alternativas",
+    tab_recipes: "📜 Crear Receta",
+    tab_about: "🌸 Sobre Nanna",
+
+    // Home / hero
+    hero_subtitle: "Descubra alternativas herbales basadas en evidencia para recetas comunes — guiadas por una herbalista entrenada como enfermera registrada.",
+    btn_medication: "💊 Medicamento",
+    btn_herb: "🌿 Hierba",
+    btn_search: "Buscar →",
+    placeholder_med: "Escriba el nombre de un medicamento...",
+    top20_med: "Los 20 Más Recetados:",
+    top20_herbs: "Las 20 Hierbas Más Populares:",
+    edu_only_home: "<strong>Solo para Uso Educativo:</strong> La información en este sitio es para educación de bienestar y no constituye consejo médico. Siempre consulte a su proveedor de salud antes de cambiar o dejar de tomar algún medicamento.",
+
+    // Lookup tab
+    lookup_title: "💊→🌿 Encontrar Alternativas Herbales",
+    lookup_subtitle: "Busque por nombre de medicamento <em>o</em> por hierba — luego explore la ciencia detrás de cada alternativa",
+    placeholder_med_lookup: "ej. Lisinopril, Metformina, ansiedad, presión alta...",
+    btn_find_alternatives: "Buscar Alternativas",
+    placeholder_herb: "ej. cúrcuma, valeriana, ashwagandha...",
+    btn_herb_profile: "Ver Perfil de Hierba",
+
+    // Loading / results
+    loading_msg: "Nanna está consultando su biblioteca herbal...",
+    results_heading: "Las 3 Mejores Alternativas Herbales para:",
+    btn_new_search: "← Nueva Búsqueda",
+    results_disclaimer: "Estas alternativas están documentadas solo con fines educativos. No deje ninguna receta sin consultar a su médico. Hable con su proveedor de salud sobre el uso de hierbas.",
+    herb_profile_heading: "🌿 Perfil de Hierba:",
+    btn_back_herbs: "← Volver a Hierbas",
+    herb_results_disclaimer: "Los resúmenes de investigación representan hallazgos de estudios publicados. Siempre hable con su médico antes de hacer cambios en sus medicamentos.",
+
+    // Shopping table
+    shopping_title: "🛒 Lista de Compras Recomendada",
+    shopping_links: "Los enlaces abren minoristas herbales de confianza",
+    btn_shop_all: "Comprar Todo",
+    col_ingredient: "Ingrediente",
+    col_form: "Forma",
+    col_qty: "Cant.",
+    col_price: "Precio Est.",
+    col_supplier: "Proveedor",
+    col_action: "Acción",
+    estimated_total: "Total Estimado",
+
+    // Recipe builder
+    recipe_title: "📜 Creador de Recetas Herbales",
+    recipe_type_label: "Tipo de Receta",
+    recipe_opt_tincture: "Tintura",
+    recipe_opt_tea: "Mezcla de Té Herbal",
+    recipe_opt_oil: "Aceite Esencial / Infusión",
+    recipe_opt_salve: "Ungüento / Bálsamo",
+    recipe_opt_capsule: "Polvo en Cápsulas",
+    recipe_opt_syrup: "Jarabe Herbal",
+    recipe_goal_label: "Objetivo de Salud / Condición",
+    placeholder_goal: "ej. apoyo para dormir, ansiedad, refuerzo inmune...",
+    recipe_herbs_label: "Hierbas Preferidas (opcional)",
+    placeholder_herbs_pref: "ej. lavanda, valeriana, manzanilla...",
+    recipe_allergy_label: "Alergias o Sensibilidades",
+    placeholder_allergies: "ej. ambrosia, nueces, sin alcohol...",
+    recipe_notes_label: "Notas Adicionales",
+    placeholder_notes: "Cualquier otro detalle: edad, peso, medicamentos actuales, factores de estilo de vida...",
+    btn_build_recipe: "🌿 Crear Mi Receta",
+    btn_clear_form: "Borrar Formulario",
+    loading_recipe: "Preparando su receta herbal...",
+
+    // About
+    about_title: "🌸 Conozca a Nanna — Iola Herschell, RN",
+    about_p1: "Iola Herschell es una Enfermera Registrada con licencia que dedicó más de <strong>25 años de su vida a la práctica clínica de enfermería</strong>, cuidando a pacientes en una amplia variedad de entornos con profunda compasión y experiencia médica. Después de retirarse de su carrera de enfermería, las dos grandes pasiones de Iola — <em>ayudar a otros y su amor por la jardinería</em> — convergieron naturalmente en un camino inesperado: el mundo ancestral y profundamente personal de los remedios caseros y la medicina herbal.",
+    about_p2: "Lo que comenzó como una búsqueda personal para reemplazar los medicamentos recetados de su familia con alternativas herbales documentadas y cuidadosamente investigadas se convirtió en una misión. A través de cursos dedicados de herbalismo, experiencia práctica cultivando plantas medicinales, y aplicando sus más de 25 años de conocimiento clínico, Iola construyó un cuerpo de trabajo que es a la vez médicamente fundamentado y enraizado en la sabiduría cálida y de sentido común que solo proviene de toda una vida cuidando personas.",
+    about_p3: "<strong>Nanna's Herbal Apothecary nació de esa misión</strong> — para compartir ese conocimiento con familias, buscadores de bienestar y cualquiera que desee opciones más seguras y naturales sin sacrificar credibilidad o seguridad. Cada recomendación en este sitio está vinculada a investigación médica revisada por pares y revisada a través del lente clínico de enfermera registrada de Iola.",
+    commit_title: "⚖️ Nuestro Compromiso Médico y Legal",
+    commit_intro: "Los 25 años de experiencia como enfermera registrada de Iola significan que comprende los riesgos de los medicamentos, las interacciones farmacológicas y la importancia de la seguridad clínica mejor que casi cualquier sitio de bienestar herbal. Por eso nos mantenemos en un estándar más alto:",
+    commit_cited: "Solo Investigación Citada",
+    commit_cited_desc: "Cada alternativa herbal tiene enlace a su fuente de PubMed, Cochrane o revisada por pares. No hay anécdota sin evidencia.",
+    commit_rn: "Contenido Revisado por Enfermera Registrada",
+    commit_rn_desc: "Toda la información es preparada y revisada por Iola Herschell, Enfermera Registrada — no contenido de bienestar generado por IA.",
+    commit_doctor: "Siempre: Consulte a Su Médico",
+    commit_doctor_desc: "Siempre recomendamos hablar con su médico tratante antes de hacer cambios a cualquier alternativa herbal.",
+    about_disclaimer: "<strong>Importante:</strong> Nanna's Herbal Apothecary es un recurso educativo. El contenido no constituye consejo médico y no debe reemplazar la consulta con un proveedor de salud con licencia. Siempre hable con su médico antes de hacer cambios en cualquier plan de tratamiento.",
+
+    // Footer
+    footer_edu: "Solo para fines educativos. No es consejo médico.",
+    footer_affiliate: "<strong>Divulgación de Afiliados:</strong> Nanna's Herbal Apothecary participa en programas de afiliados con iHerb, Amazon Associates, Mountain Rose Herbs y Starwest Botanicals. Al hacer clic en \"Comprar →\" y realizar una compra, podemos ganar una pequeña comisión sin costo adicional para usted. Esto apoya la misión de Iola de mantener este recurso educativo gratuito para todos. Como Asociado de Amazon, Nanna's Herbal Apothecary gana por las compras que califican.",
+  }
+};
+
+let currentLang = 'en';
+
+function setLanguage(lang, silent) {
+  currentLang = lang;
+  if (!silent) localStorage.setItem('nannas_lang', lang);
+
+  // Toggle button active states
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+
+  const t = TRANSLATIONS[lang];
+  if (!t) return;
+
+  // Update all data-i18n elements (innerHTML)
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  // Update all data-i18n-placeholder elements
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  // Update select option text
+  document.querySelectorAll('select option[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+}
 </script>
 </body>
 </html>
