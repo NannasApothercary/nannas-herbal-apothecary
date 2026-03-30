@@ -995,16 +995,18 @@
     flex-shrink: 0;
   }
   .lang-btn {
-    padding: 0.3rem 0.75rem;
+    padding: 0.45rem 1rem;
     border: none;
     background: transparent;
-    color: rgba(255,255,255,0.65);
+    color: rgba(255,255,255,0.75);
     font-family: 'Nunito', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     cursor: pointer;
     transition: all 0.2s;
+    min-width: 38px;
+    text-align: center;
   }
   .lang-btn.active {
     background: var(--sage);
@@ -5103,8 +5105,8 @@ const HERB_XREF = {
   </div>
   <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
     <div class="lang-toggle">
-      <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">EN</button>
-      <button class="lang-btn" id="lang-es" onclick="setLanguage('es')">ES</button>
+      <button class="lang-btn active" id="lang-en">EN</button>
+      <button class="lang-btn" id="lang-es">ES</button>
     </div>
     <div class="header-badge">
       <span data-i18n="founded_by">Founded & Reviewed by</span>
@@ -6503,8 +6505,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (herbInp) herbInp.addEventListener('keydown', e => {
     if (e.key === 'Enter') doHerbLookup();
   });
-  // Apply saved language preference
-  const savedLang = localStorage.getItem('nannas_lang') || 'en';
+  // Wire up language toggle buttons with event listeners (more reliable than inline onclick)
+  document.getElementById('lang-en').addEventListener('click', function() { setLanguage('en'); });
+  document.getElementById('lang-es').addEventListener('click', function() { setLanguage('es'); });
+
+  // Always default to English on page load (sessionStorage remembers within a tab session only)
+  const savedLang = sessionStorage.getItem('nannas_lang') || 'en';
   setLanguage(savedLang, true);
 });
 
@@ -6721,7 +6727,7 @@ let currentLang = 'en';
 
 function setLanguage(lang, silent) {
   currentLang = lang;
-  if (!silent) localStorage.setItem('nannas_lang', lang);
+  if (!silent) sessionStorage.setItem('nannas_lang', lang);
 
   // Toggle button active states
   document.getElementById('lang-en').classList.toggle('active', lang === 'en');
