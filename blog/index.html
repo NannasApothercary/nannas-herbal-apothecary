@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D0RYN4TX11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-D0RYN4TX11');
+</script>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog | Nanna's Herbal Apothecary — Evidence-Based Herbal Wellness</title>
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Evidence-based articles on herbal alternatives to prescription medications. PubMed-cited research reviewed by Iola Herschell, RN. Herbal remedies, natural health, and wellness recipes."/>
+<meta name="keywords" content="herbal alternatives blog, natural remedies articles, herbal medicine research, prescription alternatives, evidence-based herbalism"/>
+<meta name="author" content="Iola Herschell, RN — Nanna's Herbal Apothecary"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://nannasapothecary.netlify.app/blog/"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://nannasapothecary.netlify.app/blog/"/>
+<meta property="og:title" content="Blog | Nanna's Herbal Apothecary"/>
+<meta property="og:description" content="Evidence-based articles on herbal alternatives to prescription drugs. Reviewed by a licensed RN with 25+ years experience."/>
+<meta property="og:image" content="https://nannasapothecary.netlify.app/og-image.jpg"/>
+<meta property="og:site_name" content="Nanna's Herbal Apothecary"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Blog | Nanna's Herbal Apothecary"/>
+<meta name="twitter:description" content="Evidence-based articles on herbal alternatives to prescription drugs. Reviewed by a licensed RN."/>
+<meta name="twitter:image" content="https://nannasapothecary.netlify.app/og-image.jpg"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #fdf8f2;
+    --cream-dark: #f5ede0;
+    --parchment: #ede0cc;
+    --warm-tan: #c9a97a;
+    --sage: #7a9e7e;
+    --sage-dark: #5a7a5e;
+    --sage-light: #a8c5ab;
+    --terracotta: #c4714a;
+    --terracotta-light: #e8a882;
+    --brown: #6b4c35;
+    --brown-light: #8b6a52;
+    --text-dark: #3a2e26;
+    --text-mid: #6b5544;
+    --text-light: #9a8070;
+    --border: #ddd0be;
+    --shadow: rgba(90, 60, 40, 0.12);
+    --shadow-strong: rgba(90, 60, 40, 0.22);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    background: linear-gradient(135deg, #3d2b1f 0%, #5a3d28 40%, #7a5540 100%);
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    position: relative; overflow: hidden;
+  }
+  header::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .header-brand { display: flex; align-items: center; gap: 1rem; position: relative; }
+  .header-brand a { text-decoration: none; display: flex; align-items: center; gap: 1rem; }
+  .logo-circle {
+    width: 60px; height: 60px;
+    background: radial-gradient(circle, var(--warm-tan), var(--terracotta));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+  }
+  .brand-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+  .brand-text p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--terracotta-light);
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+  .header-right {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    position: relative;
+  }
+  .header-badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    text-align: right;
+  }
+  .header-badge span {
+    display: block; font-size: 0.72rem; color: var(--sage-light);
+    font-family: 'Nunito', sans-serif; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .header-badge strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem; color: var(--cream);
+  }
+
+  /* ---- LANGUAGE TOGGLE ---- */
+  .lang-toggle {
+    display: flex; align-items: center; gap: 0;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px; overflow: hidden; flex-shrink: 0;
+  }
+  .lang-btn {
+    padding: 0.45rem 1rem; border: none; background: transparent;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.06em; cursor: pointer; transition: all 0.2s;
+    min-width: 38px; text-align: center;
+  }
+  .lang-btn.active { background: var(--sage); color: white; border-radius: 20px; }
+  .lang-btn:hover:not(.active) { color: white; }
+
+  /* ---- NAV BAR ---- */
+  .blog-nav {
+    background: var(--cream-dark);
+    border-bottom: 2px solid var(--border);
+    padding: 0 1.5rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    overflow-x: auto;
+  }
+  .blog-nav a {
+    padding: 1rem 1.4rem;
+    font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 600;
+    color: var(--text-light); text-decoration: none; white-space: nowrap;
+    border-bottom: 3px solid transparent; margin-bottom: -2px;
+    transition: all 0.2s; letter-spacing: 0.03em;
+  }
+  .blog-nav a:hover { color: var(--sage-dark); }
+  .blog-nav a.active { color: var(--sage-dark); border-bottom-color: var(--sage); }
+
+  /* ---- BLOG INDEX ---- */
+  .blog-container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  .blog-hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .blog-hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; color: var(--brown);
+    margin-bottom: 0.75rem;
+  }
+  .blog-hero p {
+    font-family: 'Lora', serif;
+    font-size: 1rem; color: var(--text-mid);
+    max-width: 560px; margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* ---- POST CARDS ---- */
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .post-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 3px 16px var(--shadow);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px var(--shadow-strong);
+  }
+  .post-card-header {
+    background: linear-gradient(135deg, var(--cream-dark), var(--parchment));
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .post-card-header .post-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .post-card-header .category-tag {
+    display: inline-block;
+    background: var(--sage);
+    color: white;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-family: 'Nunito', sans-serif;
+  }
+  .post-card-body {
+    padding: 1.25rem 1.5rem;
+  }
+  .post-card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--brown);
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+  }
+  .post-card-body p {
+    font-family: 'Lora', serif;
+    font-size: 0.85rem; color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+  .post-card-meta {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem; color: var(--text-light);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .read-more {
+    display: inline-block;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    color: var(--sage-dark);
+    margin-top: 0.5rem;
+  }
+
+  /* ---- COMING SOON ---- */
+  .coming-soon {
+    background: var(--cream-dark);
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .coming-soon h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--brown);
+    margin-bottom: 0.5rem;
+  }
+  .coming-soon p {
+    font-family: 'Lora', serif;
+    font-size: 0.9rem; color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--brown);
+    color: var(--cream-dark);
+    text-align: center;
+    padding: 2rem 1.5rem;
+    margin-top: 3rem;
+  }
+  footer p { font-family: 'Lora', serif; font-style: italic; font-size: 0.85rem; line-height: 1.7; opacity: 0.85; }
+  footer .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--warm-tan);
+    margin-bottom: 0.5rem; font-style: normal; opacity: 1;
+  }
+
+  /* ---- EMAIL SIGNUP ---- */
+  .email-signup {
+    max-width: 500px; margin: 0 auto; padding: 1.5rem 1rem; text-align: center;
+  }
+  .email-signup .signup-title {
+    font-family: 'Playfair Display', serif; color: var(--brown);
+    font-size: 1.1rem; margin: 0 0 0.3rem;
+  }
+  .email-signup .signup-desc {
+    font-family: 'Lora', serif; font-size: 0.85rem;
+    color: var(--text-mid); margin: 0 0 0.75rem;
+  }
+
+  @media (max-width: 600px) {
+    .blog-hero h2 { font-size: 1.6rem; }
+    .brand-text h1 { font-size: 1.4rem; }
+    .post-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ======== HEADER ======== -->
+<header>
+  <div class="header-brand">
+    <a href="https://nannasapothecary.netlify.app/">
+      <div class="logo-circle">&#127807;</div>
+      <div class="brand-text">
+        <h1>Nanna's Herbal Apothecary</h1>
+        <p>Nature's Wisdom &middot; Modern Wellness</p>
+      </div>
+    </a>
+  </div>
+  <div class="header-right">
+    <div class="header-badge">
+      <span data-i18n="badge_label">Founded &amp; Reviewed by</span>
+      <strong>Iola Herschell, RN</strong>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="lang-en">EN</button>
+      <button class="lang-btn" id="lang-es">ES</button>
+    </div>
+  </div>
+</header>
+
+<!-- ======== NAV ======== -->
+<nav class="blog-nav">
+  <a href="https://nannasapothecary.netlify.app/" data-i18n="nav_home">Home</a>
+  <a href="https://nannasapothecary.netlify.app/blog/" class="active" data-i18n="nav_blog">Blog</a>
+  <a href="https://nannasapothecary.netlify.app/#lookup" data-i18n="nav_lookup">Lookup Tool</a>
+  <a href="https://nannasapothecary.netlify.app/#recipes" data-i18n="nav_recipes">Recipe Builder</a>
+</nav>
+
+<!-- ======== BLOG INDEX ======== -->
+<main class="blog-container">
+
+  <div class="blog-hero">
+    <h2 data-i18n="blog_title">&#127807; Nanna's Herbal Blog</h2>
+    <p data-i18n="blog_subtitle">Evidence-based articles on herbal alternatives, natural remedies, and wellness recipes — reviewed by Iola Herschell, RN.</p>
+  </div>
+
+  <!-- POST GRID -->
+  <div class="post-grid">
+
+    <!-- Post 1: Lisinopril / Hibiscus -->
+    <a href="lisinopril-alternatives-hibiscus-blood-pressure" class="post-card">
+      <div class="post-card-header">
+        <div class="post-icon">&#127802;</div>
+        <span class="category-tag" data-i18n="cat_prescription_alt">Prescription Alternatives</span>
+      </div>
+      <div class="post-card-body">
+        <h3 data-i18n="post1_title">3 Natural Alternatives to Lisinopril for Blood Pressure</h3>
+        <p data-i18n="post1_excerpt">Hibiscus, Olive Leaf &amp; Garlic — head-to-head trials show these herbs match low-dose ACE inhibitors with fewer side effects.</p>
+        <div class="post-card-meta">
+          <span>Iola Herschell, RN</span>
+          <span>&middot;</span>
+          <span data-i18n="post1_date">April 9, 2026</span>
+        </div>
+        <span class="read-more" data-i18n="read_more">Read Article &rarr;</span>
+      </div>
+    </a>
+
+  </div><!-- .post-grid -->
+
+  <!-- Coming Soon -->
+  <div class="coming-soon">
+    <h3 data-i18n="coming_title">&#127793; More Articles Coming Soon</h3>
+    <p data-i18n="coming_desc">We're converting all 13 of our researched drug categories into full blog articles. Next up: Metformin alternatives, Lipitor alternatives, and more. Subscribe below to get notified when new articles are published.</p>
+  </div>
+
+</main>
+
+<!-- ======== EMAIL SIGNUP ======== -->
+<div class="email-signup">
+  <p class="signup-title">&#128236; <span data-i18n="signup_title">Stay Connected</span></p>
+  <p class="signup-desc" data-i18n="signup_desc">Join our newsletter for herbal tips, new recipes, and research updates.</p>
+  <script async data-uid="53e43f4213" src="https://nanna-s-herbal-apothecary.kit.com/53e43f4213/index.js"></script>
+</div>
+
+<!-- ======== FOOTER ======== -->
+<footer>
+  <p class="footer-brand">&#127807; Nanna's Herbal Apothecary</p>
+  <p>
+    <span data-i18n="tagline">Nature's Wisdom &middot; Modern Wellness &middot; Trusted Care</span><br/>
+    <span data-i18n="footer_edu">For educational purposes only. Not medical advice.</span><br/>
+    &copy; 2025 Nanna's Herbal Apothecary. All rights reserved.
+  </p>
+</footer>
+
+<!-- ======== LANGUAGE TOGGLE JS ======== -->
+<script>
+var currentLang = 'en';
+
+var TRANSLATIONS = {
+  en: {
+    badge_label: "Founded &amp; Reviewed by",
+    nav_home: "Home",
+    nav_blog: "Blog",
+    nav_lookup: "Lookup Tool",
+    nav_recipes: "Recipe Builder",
+    blog_title: "\ud83c\udf3f Nanna's Herbal Blog",
+    blog_subtitle: "Evidence-based articles on herbal alternatives, natural remedies, and wellness recipes \u2014 reviewed by Iola Herschell, RN.",
+    cat_prescription_alt: "Prescription Alternatives",
+    post1_title: "3 Natural Alternatives to Lisinopril for Blood Pressure",
+    post1_excerpt: "Hibiscus, Olive Leaf &amp; Garlic \u2014 head-to-head trials show these herbs match low-dose ACE inhibitors with fewer side effects.",
+    post1_date: "April 9, 2026",
+    read_more: "Read Article &rarr;",
+    coming_title: "\ud83c\udf31 More Articles Coming Soon",
+    coming_desc: "We're converting all 13 of our researched drug categories into full blog articles. Next up: Metformin alternatives, Lipitor alternatives, and more. Subscribe below to get notified when new articles are published.",
+    signup_title: "Stay Connected",
+    signup_desc: "Join our newsletter for herbal tips, new recipes, and research updates.",
+    tagline: "Nature's Wisdom &middot; Modern Wellness &middot; Trusted Care",
+    footer_edu: "For educational purposes only. Not medical advice."
+  },
+  es: {
+    badge_label: "Fundada y Revisada por",
+    nav_home: "Inicio",
+    nav_blog: "Blog",
+    nav_lookup: "Buscar Alternativas",
+    nav_recipes: "Crear Receta",
+    blog_title: "\ud83c\udf3f Blog Herbal de Nanna",
+    blog_subtitle: "Art\u00edculos basados en evidencia sobre alternativas herbales, remedios naturales y recetas de bienestar \u2014 revisados por Iola Herschell, Enfermera Registrada.",
+    cat_prescription_alt: "Alternativas a Medicamentos",
+    post1_title: "3 Alternativas Naturales al Lisinopril para la Presi\u00f3n Arterial",
+    post1_excerpt: "Hibisco, Hoja de Olivo y Ajo \u2014 ensayos directos muestran que estas hierbas igualan a los inhibidores de la ECA en dosis bajas con menos efectos secundarios.",
+    post1_date: "9 de abril de 2026",
+    read_more: "Leer Art\u00edculo &rarr;",
+    coming_title: "\ud83c\udf31 M\u00e1s Art\u00edculos Pr\u00f3ximamente",
+    coming_desc: "Estamos convirtiendo nuestras 13 categor\u00edas de medicamentos investigados en art\u00edculos completos de blog. Pr\u00f3ximamente: alternativas al Metformin, alternativas al Lipitor, y m\u00e1s. Suscr\u00edbase para recibir notificaciones cuando se publiquen nuevos art\u00edculos.",
+    signup_title: "Mantente Conectado",
+    signup_desc: "\u00danete a nuestro bolet\u00edn para consejos herbales, nuevas recetas y actualizaciones de investigaci\u00f3n.",
+    tagline: "Sabidur\u00eda Natural &middot; Bienestar Moderno &middot; Cuidado Confiable",
+    footer_edu: "Solo para fines educativos. No es consejo m\u00e9dico."
+  }
+};
+
+document.getElementById('lang-en').addEventListener('click', function() { setLanguage('en'); });
+document.getElementById('lang-es').addEventListener('click', function() { setLanguage('es'); });
+
+function setLanguage(lang) {
+  currentLang = lang;
+  sessionStorage.setItem('nannas_lang', lang);
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+  var t = TRANSLATIONS[lang];
+  if (!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var saved = sessionStorage.getItem('nannas_lang');
+  if (saved && saved !== 'en') setLanguage(saved);
+});
+</script>
+
+</body>
+</html>
