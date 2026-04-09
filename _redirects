@@ -1,0 +1,2 @@
+# Redirect .netlify.app to custom domain
+https://nannasapothecary.netlify.app/* https://nannasapothecary.com/:splat 301!
