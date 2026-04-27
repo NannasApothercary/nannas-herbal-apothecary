@@ -64,7 +64,9 @@ Provide the top 3 evidence-based herbal alternatives. Return ONLY valid JSON in 
   ]
 }
 
-IMPORTANT: Only cite real studies with real PubMed search terms. Always include safety disclaimers in sideEffects. Note when herbs interact with medications.`;
+IMPORTANT: Only cite real studies with real PubMed search terms. Always include safety disclaimers in sideEffects. Note when herbs interact with medications.
+
+Keep total response under 2000 tokens. Use 1 study per remedy. Keep summaries to 2 sentences. Keep all text concise but clinically accurate.`;
 }
 
 function buildHerbPrompt(herb) {
@@ -110,7 +112,9 @@ Return ONLY valid JSON — no other text — in exactly this format:
   "contraindications": ["contraindication 1", "contraindication 2", "contraindication 3"]
 }
 
-IMPORTANT: Provide 2-3 replacements and 2-3 studies. Only cite real studies with real PubMed search terms. Always include safety warnings. Note drug interactions.`;
+IMPORTANT: Provide 2 replacements and 2 studies. Only cite real studies with real PubMed search terms. Always include safety warnings. Note drug interactions.
+
+Keep total response under 2000 tokens. Keep summaries to 2 sentences. Keep all text concise but clinically accurate.`;
 }
 
 // --- Helpers ---
@@ -237,7 +241,7 @@ export default async (req, context) => {
       },
       body: JSON.stringify({
         model: ANTHROPIC_MODEL,
-        max_tokens: 4096,
+        max_tokens: 2200,            // tuned to fit Netlify free-tier 10s function timeout
         messages: [{ role: 'user', content: prompt }]
       })
     });
@@ -293,16 +297,4 @@ export default async (req, context) => {
     calls: spend.calls + 1
   });
 
-  // Increment IP counter (subscribers don't count toward limit, but we still log it)
-  await store.setJSON(ipKey, {
-    count: ipRecord.count + 1,
-    lastSeen: new Date().toISOString(),
-    subscriber: isSubscriber
-  });
-
-  return jsonResponse(200, {
-    status: 'fresh',
-    data: parsed,
-    remaining: isSubscriber ? null : Math.max(0, PER_IP_DAILY_LIMIT - (ipRecord.count + 1))
-  });
-};
+  // Increment IP counter (subscribers don't count toward limit, but we
