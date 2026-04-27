@@ -3,7 +3,6 @@
 <head>
 <meta name='impact-site-verification' value='454abf07-a197-4ff3-8aa7-91030ee0daa3'>
 <meta name="p:domain_verify" content="09ca2a06836f4ecfc13730bfc8ce7a02"/>
-<meta name="google-site-verification" content="h9gKOFPd97C9QGt0Zj5JlLG9otpyrl3AtS4jxO9ovFM" />
 
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D0RYN4TX11"></script>
@@ -30,7 +29,7 @@
 <meta property="og:url" content="https://nannasapothecary.com/"/>
 <meta property="og:title" content="Nanna's Herbal Apothecary | Natural Alternatives to Prescription Drugs"/>
 <meta property="og:description" content="Look up your prescription and discover the top 3 evidence-based herbal alternatives. Free research, dosage guides &amp; tincture recipes — reviewed by a licensed RN."/>
-<meta property="og:image" content="https://nannasapothecary.com/og-image.jpg"/>
+<meta property="og:image" content="https://nannasapothecary.netlify.app/og-image.jpg"/>
 <meta property="og:site_name" content="Nanna's Herbal Apothecary"/>
 <meta property="og:locale" content="en_US"/>
 
@@ -38,7 +37,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Nanna's Herbal Apothecary | Natural Alternatives to Prescription Drugs"/>
 <meta name="twitter:description" content="Look up your prescription and discover the top 3 evidence-based herbal alternatives. Free research, dosage guides &amp; tincture recipes — reviewed by a licensed RN."/>
-<meta name="twitter:image" content="https://nannasapothecary.com/og-image.jpg"/>
+<meta name="twitter:image" content="https://nannasapothecary.netlify.app/og-image.jpg"/>
 
 <!-- Schema.org Structured Data (Google rich results) -->
 <script type="application/ld+json">
@@ -47,7 +46,7 @@
   "@type": "HealthAndBeautyBusiness",
   "name": "Nanna's Herbal Apothecary",
   "description": "Evidence-based herbal alternatives to prescription medications, reviewed by a licensed RN with 25+ years experience.",
-  "url": "https://nannasapothecary.com",
+  "url": "https://nannasapothecary.netlify.app",
   "founder": {
     "@type": "Person",
     "name": "Iola Herschell",
@@ -283,6 +282,97 @@
     font-family: 'Nunito', sans-serif;
   }
   .hero-cta:hover { background: var(--sage-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(122,158,126,0.5); }
+
+  /* ---- LEAD MAGNET (Kit email capture) ---- */
+  .lead-magnet {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--parchment) 100%);
+    border: 2px solid var(--terracotta);
+    border-radius: 14px;
+    padding: 1.5rem 1.25rem 1.25rem;
+    margin: 0 auto 1.5rem;
+    max-width: 560px;
+    text-align: center;
+    box-shadow: 0 4px 14px var(--shadow);
+    position: relative;
+  }
+  .lm-badge {
+    display: inline-block;
+    background: var(--terracotta);
+    color: var(--cream);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.28rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 0.6rem;
+  }
+  .lm-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--brown);
+    margin: 0 0 0.45rem;
+    line-height: 1.25;
+  }
+  .lm-subtitle {
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+    margin: 0 auto 1rem;
+    max-width: 460px;
+  }
+  .lm-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 0.65rem;
+  }
+  .lm-form input[type="email"] {
+    flex: 1 1 220px;
+    min-width: 0;
+    padding: 0.7rem 0.9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    background: white;
+    color: var(--text-dark);
+  }
+  .lm-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(122,158,126,0.18);
+  }
+  .lm-form button {
+    padding: 0.7rem 1.1rem;
+    background: var(--sage);
+    color: var(--cream);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .lm-form button:hover { background: var(--sage-dark); transform: translateY(-1px); }
+  .lm-trust {
+    font-family: 'Lora', serif;
+    font-size: 0.74rem;
+    color: var(--text-light);
+    margin: 0;
+    font-style: italic;
+  }
+  @media (max-width: 480px) {
+    .lead-magnet { padding: 1.25rem 1rem 1rem; }
+    .lm-title { font-size: 1.15rem; }
+    .lm-subtitle { font-size: 0.82rem; }
+    .lm-form input[type="email"] { flex: 1 1 100%; }
+    .lm-form button { width: 100%; }
+  }
 
   .feature-cards {
     display: grid;
@@ -5144,6 +5234,18 @@ const HERB_XREF = {
     <h2 style="margin-bottom:0.5rem;">🌿 Nanna's Herbal Apothecary</h2>
     <p style="margin-bottom:1.25rem;font-size:1rem;" data-i18n="hero_subtitle">Discover evidence-based herbal alternatives to common prescriptions — guided by an RN-trained herbalist.</p>
 
+    <!-- LEAD MAGNET BANNER (above-the-fold Kit signup) -->
+    <div class="lead-magnet" id="lead-magnet">
+      <div class="lm-badge" data-i18n="lm_badge">FREE GUIDE</div>
+      <h3 class="lm-title" data-i18n="lm_title">5 Prescription → Herb Swap Guide</h3>
+      <p class="lm-subtitle" data-i18n="lm_subtitle">Evidence-based herbal alternatives to America's most-prescribed medications — with PubMed citations, dosages, and safety warnings reviewed by Iola Herschell, RN.</p>
+      <form class="lm-form" action="https://app.kit.com/forms/9298332/subscriptions" method="post" target="_blank" data-sv-form="9298332" data-uid="53e43f4213">
+        <input type="email" name="email_address" required placeholder="your@email.com" data-i18n-placeholder="lm_email_placeholder" aria-label="Email address" />
+        <button type="submit" data-i18n="lm_button">Send me the guide &rarr;</button>
+      </form>
+      <p class="lm-trust" data-i18n="lm_trust">No spam &middot; Unsubscribe anytime &middot; RN-reviewed &middot; PubMed-cited</p>
+    </div>
+
     <!-- SEARCH TOGGLE -->
     <div class="home-search-box">
       <div class="toggle-row">
@@ -6566,6 +6668,15 @@ const TRANSLATIONS = {
 
     // Home / hero
     hero_subtitle: "Discover evidence-based herbal alternatives to common prescriptions — guided by an RN-trained herbalist.",
+
+    // Lead magnet (free PDF guide)
+    lm_badge: "FREE GUIDE",
+    lm_title: "5 Prescription → Herb Swap Guide",
+    lm_subtitle: "Evidence-based herbal alternatives to America's most-prescribed medications — with PubMed citations, dosages, and safety warnings reviewed by Iola Herschell, RN.",
+    lm_email_placeholder: "your@email.com",
+    lm_button: "Send me the guide →",
+    lm_trust: "No spam · Unsubscribe anytime · RN-reviewed · PubMed-cited",
+
     btn_medication: "💊 Medication",
     btn_herb: "🌿 Herb",
     btn_search: "Search →",
@@ -6669,6 +6780,15 @@ const TRANSLATIONS = {
 
     // Home / hero
     hero_subtitle: "Descubra alternativas herbales basadas en evidencia para recetas comunes — guiadas por una herbalista entrenada como enfermera registrada.",
+
+    // Lead magnet (guía PDF gratuita)
+    lm_badge: "GUÍA GRATUITA",
+    lm_title: "Guía de Sustitución: 5 Recetas → Hierbas",
+    lm_subtitle: "Alternativas herbales basadas en evidencia para los medicamentos más recetados en Estados Unidos — con citas de PubMed, dosis y advertencias de seguridad revisadas por Iola Herschell, enfermera registrada.",
+    lm_email_placeholder: "tu@correo.com",
+    lm_button: "Envíenme la guía →",
+    lm_trust: "Sin spam · Cancele cuando quiera · Revisado por enfermera · Con citas de PubMed",
+
     btn_medication: "💊 Medicamento",
     btn_herb: "🌿 Hierba",
     btn_search: "Buscar →",
