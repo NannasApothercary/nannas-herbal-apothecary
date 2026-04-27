@@ -296,5 +296,16 @@ export default async (req, context) => {
     dollars: Number((spend.dollars + cost).toFixed(5)),
     calls: spend.calls + 1
   });
+  // Increment IP counter (subscribers don't count toward limit, but we still log it)
+  await store.setJSON(ipKey, {
+    count: ipRecord.count + 1,
+    lastSeen: new Date().toISOString(),
+    subscriber: isSubscriber
+  });
 
-  // Increment IP counter (subscribers don't count toward limit, but we
+  return jsonResponse(200, {
+    status: 'fresh',
+    data: parsed,
+    remaining: isSubscriber ? null : Math.max(0, PER_IP_DAILY_LIMIT - (ipRecord.count + 1))
+  });
+};
