@@ -5159,21 +5159,23 @@ const HERB_XREF = {
 </head>
 <body>
 
-<!-- API KEY SETTINGS MODAL -->
-<div id="api-settings-overlay" style="display:none;position:fixed;inset:0;background:rgba(58,46,38,0.82);z-index:9998;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(3px);">
-  <div style="background:var(--cream);border-radius:18px;max-width:500px;width:100%;padding:2.5rem;border:2px solid var(--parchment);box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-    <div style="text-align:center;font-size:2rem;margin-bottom:1rem;">⚙️</div>
-    <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--brown);text-align:center;margin-bottom:0.75rem;">Enable AI-Powered Search</h2>
-    <p style="font-family:'Lora',serif;font-size:0.87rem;color:var(--text-mid);line-height:1.7;margin-bottom:1rem;">
-      To look up any prescription not yet in our database, enter your Anthropic API key below. Get one free at <a href="https://console.anthropic.com" target="_blank" style="color:var(--sage-dark);">console.anthropic.com</a>. Your key is stored only in your browser — it is never sent to any server other than Anthropic's API directly.
+<!-- EMAIL GATE MODAL (shown when visitor uses up their free AI searches) -->
+<div id="email-gate-overlay" style="display:none;position:fixed;inset:0;background:rgba(58,46,38,0.82);z-index:9998;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(3px);">
+  <div style="background:var(--cream);border-radius:18px;max-width:520px;width:100%;padding:2.5rem;border:2px solid var(--parchment);box-shadow:0 20px 60px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
+    <div style="text-align:center;font-size:2.2rem;margin-bottom:0.75rem;">🌿</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--brown);text-align:center;margin-bottom:0.75rem;">You've used your free searches for today</h2>
+    <p style="font-family:'Lora',serif;font-size:0.92rem;color:var(--text-mid);line-height:1.7;margin-bottom:1.25rem;text-align:center;">
+      Join Iola's free email list to keep searching — plus get her weekly herbal tips, recipe ideas, and Nanna's <strong>5 Rx Herb Swap Guide</strong> as a welcome gift.
     </p>
-    <input type="password" id="api-key-input" placeholder="sk-ant-..." 
-      style="width:100%;padding:0.8rem 1rem;border:1px solid var(--border);border-radius:10px;font-family:'Nunito',sans-serif;font-size:0.9rem;margin-bottom:1rem;background:white;color:var(--text-dark);" />
-    <div style="display:flex;gap:0.75rem;">
-      <button onclick="saveApiKey()" style="flex:1;background:var(--sage);color:white;border:none;padding:0.85rem;border-radius:10px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;">Save & Enable AI</button>
-      <button onclick="closeApiSettings()" style="background:var(--cream-dark);color:var(--text-mid);border:1px solid var(--border);padding:0.85rem 1.2rem;border-radius:10px;font-family:'Nunito',sans-serif;font-size:0.95rem;cursor:pointer;">Cancel</button>
+    <!-- Kit form embed (form ID 9298332 / UID 53e43f4213) -->
+    <div style="background:white;border-radius:12px;padding:1rem;border:1px solid var(--border);margin-bottom:1rem;">
+      <script async data-uid="53e43f4213" src="https://nanna-s-herbal-apothecary.kit.com/53e43f4213/index.js"></script>
     </div>
-    <p style="font-family:'Lora',serif;font-size:0.78rem;color:var(--text-light);margin-top:0.75rem;text-align:center;line-height:1.5;">API calls cost ~$0.01–0.02 per search. Set a monthly cap at console.anthropic.com.</p>
+    <div style="display:flex;gap:0.75rem;align-items:center;">
+      <button onclick="markEmailSubscribed()" style="flex:1;background:var(--sage);color:white;border:none;padding:0.85rem;border-radius:10px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;">I subscribed — keep searching</button>
+      <button onclick="closeEmailGate()" style="background:var(--cream-dark);color:var(--text-mid);border:1px solid var(--border);padding:0.85rem 1.2rem;border-radius:10px;font-family:'Nunito',sans-serif;font-size:0.95rem;cursor:pointer;">Maybe later</button>
+    </div>
+    <p style="font-family:'Lora',serif;font-size:0.78rem;color:var(--text-light);margin-top:0.9rem;text-align:center;line-height:1.5;">No spam. Unsubscribe anytime. Your email is only used by Nanna's Apothecary.</p>
   </div>
 </div>
 
@@ -5764,34 +5766,14 @@ function doHerbLookupByKey(key) {
 }
 
 // ---- AI HERB LOOKUP (for herbs not in database) ----
+// Calls our server-side Netlify Function — no API key needed from the visitor.
 async function showHerbAILookup(herbName) {
   const displayName = herbName.charAt(0).toUpperCase() + herbName.slice(1);
-  const apiKey = localStorage.getItem('nannas_api_key');
 
   document.getElementById('herb-results').style.display = 'block';
   document.getElementById('herb-results-name').textContent = displayName + ' — AI Research';
 
-  if (!apiKey) {
-    document.getElementById('herb-profile-content').innerHTML = `
-      <div style="background:white;border-radius:14px;padding:2rem;border:1px solid var(--border);text-align:center;">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">🤖</div>
-        <h3 style="font-family:'Playfair Display',serif;color:var(--brown);margin-bottom:0.75rem;">AI Herb Research Available</h3>
-        <p style="font-family:'Lora',serif;color:var(--text-mid);font-size:0.9rem;line-height:1.7;max-width:480px;margin:0 auto 1.25rem;">
-          <strong>"${displayName}"</strong> isn't in our manual database yet. Enable AI-powered search to instantly generate a full herb profile — what prescriptions it may replace, clinical studies, dosage, and shopping list.
-        </p>
-        <button onclick="openApiSettings()" style="background:var(--sage);color:white;border:none;padding:0.9rem 2rem;border-radius:10px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:1rem;">⚙️ Set Up AI Search (free)</button>
-        <p style="font-family:'Lora',serif;font-size:0.8rem;color:var(--text-light);">Or try a pre-loaded herb:</p>
-        <div class="common-pills" style="justify-content:center;margin-top:0.5rem;">
-          <span class="pill" onclick="selectHerb('hibiscus')">Hibiscus</span>
-          <span class="pill" onclick="selectHerb('turmeric')">Turmeric</span>
-          <span class="pill" onclick="selectHerb('ashwagandha')">Ashwagandha</span>
-          <span class="pill" onclick="selectHerb('valerian')">Valerian</span>
-        </div>
-      </div>`;
-    return;
-  }
-
-  // Show loading state
+  // Loading state
   document.getElementById('herb-profile-content').innerHTML = `
     <div style="background:white;border-radius:14px;padding:2.5rem;border:1px solid var(--border);text-align:center;">
       <div style="font-size:2.5rem;margin-bottom:1rem;animation:pulse 1.5s infinite;">🌿</div>
@@ -5802,91 +5784,45 @@ async function showHerbAILookup(herbName) {
       </div>
     </div>`;
 
-  const prompt = `You are a medical herbalism expert. A visitor to Nanna's Herbal Apothecary (run by Iola Herschell, RN) wants to know about the herb: "${displayName}".
-
-Return ONLY valid JSON — no other text — in exactly this format:
-
-{
-  "name": "Herb Common Name",
-  "latin": "Genus species",
-  "icon": "🌿",
-  "tags": ["tag1", "tag2", "tag3"],
-  "overview": "2-3 sentence clinical overview of what this herb does and its traditional and modern uses.",
-  "replacements": [
-    {
-      "rank": 1,
-      "rx": "Drug Name (Brand/Generic)",
-      "rxClass": "Drug class (e.g. ACE Inhibitor)",
-      "condition": "condition treated (e.g. hypertension)",
-      "evidence": "High Evidence / Moderate Evidence / Emerging Evidence",
-      "mechanism": "How this herb works compared to the drug mechanism",
-      "dosage": "Specific dosage recommendation with form",
-      "notes": "Key safety notes, interactions, and contraindications"
-    }
-  ],
-  "studies": [
-    {
-      "title": "Journal: Study Title (Year)",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/?term=relevant+search+terms",
-      "journal": "Journal Name",
-      "year": "2023",
-      "type": "RCT / Meta-Analysis / Clinical Review",
-      "evidenceLevel": "High / Moderate / Emerging",
-      "summary": "3-4 sentence plain-English summary with specific numbers where available",
-      "finding": "One-sentence key finding with specific data",
-      "studyForm": "How the herb was administered in the study"
-    }
-  ],
-  "shopping": [
-    {"name": "Product Name", "form": "Loose Herb / Capsules / Extract", "qty": "amount", "basePrice": 12.99, "supplier": "Mountain Rose Herbs"},
-    {"name": "Product Name", "form": "Capsules (60ct)", "qty": "1 bottle", "basePrice": 18.99, "supplier": "iHerb"}
-  ],
-  "contraindications": ["contraindication 1", "contraindication 2", "contraindication 3"]
-}
-
-IMPORTANT: Provide 2-3 replacements and 2-3 studies. Only cite real studies with real PubMed search terms. Always include safety warnings. Note drug interactions.`;
-
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('/.netlify/functions/herb-lookup', {
       method: 'POST',
-      headers: {
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 4096,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      headers: nannasLookupHeaders(),
+      body: JSON.stringify({ type: 'herb', query: displayName })
     });
 
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || 'API error');
+    const result = await response.json();
+
+    if (response.status === 429 && result.status === 'rate_limited') {
+      showRateLimitMessage('herb-profile-content', displayName);
+      openEmailGate();
+      return;
+    }
+    if (response.status === 503 && result.status === 'capped') {
+      showCapMessage('herb-profile-content');
+      return;
+    }
+    if (!response.ok || !result.data) {
+      throw new Error(result.error || 'Search failed');
     }
 
-    const data = await response.json();
-    const text = data.content[0].text.trim();
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('Could not parse response');
-    const h = JSON.parse(jsonMatch[0]);
+    const h = result.data;
 
     // Inject into HERB_XREF under a temp key and render using existing renderer
     const tempKey = '__ai_' + herbName.replace(/\s+/g, '_');
     HERB_XREF[tempKey] = h;
     document.getElementById('herb-results-name').textContent = h.name + ' — AI Research';
-
-    // Render contraindications separately, then call renderHerbProfile
     renderHerbProfile(tempKey);
 
-    // Append AI badge + contraindications below the rendered profile
+    // Append AI badge + contraindications + cache status
     const panel = document.getElementById('herb-profile-content');
     const aiNote = document.createElement('div');
+    const cacheBadge = result.status === 'cached'
+      ? '<span style="background:var(--cream-dark);color:var(--text-light);padding:0.15rem 0.55rem;border-radius:8px;font-size:0.7rem;margin-left:0.5rem;">cached</span>'
+      : '';
     aiNote.innerHTML = `
       <div style="background:linear-gradient(135deg,#f0f7f0,#e8f4e8);border-radius:12px;padding:1.25rem 1.5rem;border:1px solid var(--sage-light);margin-top:1rem;">
-        <div style="font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;color:var(--sage-dark);margin-bottom:0.5rem;">🤖 AI-Generated Profile</div>
+        <div style="font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;color:var(--sage-dark);margin-bottom:0.5rem;">🤖 AI-Generated Profile${cacheBadge}</div>
         <p style="font-family:'Lora',serif;font-size:0.82rem;color:var(--text-mid);line-height:1.6;margin-bottom:0.5rem;">
           This profile was generated by Claude AI from peer-reviewed medical literature. Always verify studies on PubMed and consult Iola or your healthcare provider before use.
         </p>
@@ -5895,6 +5831,8 @@ IMPORTANT: Provide 2-3 replacements and 2-3 studies. Only cite real studies with
           <ul style="margin:0.3rem 0 0 1rem;padding:0;">
             ${h.contraindications.map(c => `<li style="font-family:'Lora',serif;font-size:0.82rem;color:var(--text-mid);line-height:1.5;margin-bottom:0.2rem;">${c}</li>`).join('')}
           </ul>` : ''}
+        ${typeof result.remaining === 'number' && result.status === 'fresh' ? `
+          <p style="font-family:'Lora',serif;font-size:0.78rem;color:var(--text-light);margin-top:0.6rem;">Free searches remaining today: <strong>${result.remaining}</strong></p>` : ''}
       </div>`;
     panel.appendChild(aiNote);
 
@@ -5904,9 +5842,8 @@ IMPORTANT: Provide 2-3 replacements and 2-3 studies. Only cite real studies with
         <div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div>
         <h3 style="font-family:'Playfair Display',serif;color:var(--terracotta);margin-bottom:0.75rem;">Search Error</h3>
         <p style="font-family:'Lora',serif;color:var(--text-mid);font-size:0.9rem;line-height:1.7;max-width:480px;margin:0 auto 1rem;">
-          ${err.message.includes('401') ? 'Invalid API key. Please check your key in ⚙️ Settings.' : 'Something went wrong: ' + err.message}
+          Something went wrong: ${err.message}. Please try again in a moment.
         </p>
-        <button onclick="openApiSettings()" style="background:var(--sage);color:white;border:none;padding:0.75rem 1.5rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;">⚙️ Check API Settings</button>
       </div>`;
   }
 }
@@ -6295,55 +6232,58 @@ function clearRecipe() {
 
 
 
-// ---- AI-POWERED LOOKUP (Claude API) ----
-function openApiSettings() {
-  const overlay = document.getElementById('api-settings-overlay');
-  overlay.style.display = 'flex';
-  const saved = localStorage.getItem('nannas_api_key');
-  if (saved) document.getElementById('api-key-input').value = saved;
-}
-function closeApiSettings() {
-  document.getElementById('api-settings-overlay').style.display = 'none';
-}
-function saveApiKey() {
-  const key = document.getElementById('api-key-input').value.trim();
-  if (!key.startsWith('sk-ant-')) {
-    alert('Please enter a valid Anthropic API key (starts with sk-ant-)');
-    return;
+// ---- AI-POWERED LOOKUP (server-side via Netlify Function) ----
+// Helpers for the email-gate flow that replaces the old BYO-API-key dialog.
+function nannasLookupHeaders() {
+  const headers = { 'content-type': 'application/json' };
+  if (localStorage.getItem('nannas_subscribed') === '1') {
+    headers['x-subscriber'] = '1';
   }
-  localStorage.setItem('nannas_api_key', key);
-  closeApiSettings();
-  alert('✅ AI Search enabled! Try searching any prescription now.');
+  return headers;
+}
+function openEmailGate() {
+  document.getElementById('email-gate-overlay').style.display = 'flex';
+}
+function closeEmailGate() {
+  document.getElementById('email-gate-overlay').style.display = 'none';
+}
+function markEmailSubscribed() {
+  localStorage.setItem('nannas_subscribed', '1');
+  closeEmailGate();
+  alert('✅ Thanks for subscribing! Your free searches are unlocked.');
+}
+function showRateLimitMessage(containerId, term) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = `
+    <div style="background:white;border-radius:14px;padding:2rem;border:1px solid var(--border);text-align:center;">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🌿</div>
+      <h3 style="font-family:'Playfair Display',serif;color:var(--brown);margin-bottom:0.75rem;">You've used your free searches for today</h3>
+      <p style="font-family:'Lora',serif;color:var(--text-mid);font-size:0.9rem;line-height:1.7;max-width:480px;margin:0 auto 1.25rem;">
+        Join Iola's free email list to keep researching <strong>${term || 'this'}</strong> and other herbs — plus get her welcome guide.
+      </p>
+      <button onclick="openEmailGate()" style="background:var(--sage);color:white;border:none;padding:0.85rem 1.8rem;border-radius:10px;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;">Join the email list</button>
+    </div>`;
+}
+function showCapMessage(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = `
+    <div style="background:white;border-radius:14px;padding:2rem;border:1px solid var(--border);text-align:center;">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🌿</div>
+      <h3 style="font-family:'Playfair Display',serif;color:var(--brown);margin-bottom:0.75rem;">AI search is resting today</h3>
+      <p style="font-family:'Lora',serif;color:var(--text-mid);font-size:0.9rem;line-height:1.7;max-width:480px;margin:0 auto;">
+        Today's research budget has been used up. Please check back tomorrow, or browse our pre-loaded herbs and prescriptions.
+      </p>
+    </div>`;
 }
 
 async function showAILookup(drug) {
-  const apiKey = localStorage.getItem('nannas_api_key');
-  
   document.getElementById('results-drug-name').textContent = drug + ' — AI Research';
   document.getElementById('results').style.display = 'block';
   document.getElementById('shopping-section').style.display = 'none';
-  
-  if (!apiKey) {
-    document.getElementById('remedy-cards').innerHTML = `
-      <div style="background:white;border-radius:14px;padding:2rem;border:1px solid var(--border);text-align:center;">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">🤖</div>
-        <h3 style="font-family:'Playfair Display',serif;color:var(--brown);margin-bottom:0.75rem;">AI Search Available</h3>
-        <p style="font-family:'Lora',serif;color:var(--text-mid);font-size:0.9rem;line-height:1.7;max-width:480px;margin:0 auto 1.25rem;">
-          <strong>"${drug}"</strong> isn't in our manual database yet. Enable AI-powered search to look up any prescription instantly using Claude, Anthropic's AI with access to medical literature.
-        </p>
-        <button onclick="openApiSettings()" style="background:var(--sage);color:white;border:none;padding:0.9rem 2rem;border-radius:10px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:1rem;">⚙️ Set Up AI Search (free)</button>
-        <p style="font-family:'Lora',serif;font-size:0.8rem;color:var(--text-light);">Or try one of these pre-loaded searches:</p>
-        <div class="common-pills" style="justify-content:center;margin-top:0.5rem;">
-          <span class="pill" onclick="quickSearch('Lisinopril')">Lisinopril</span>
-          <span class="pill" onclick="quickSearch('Metformin')">Metformin</span>
-          <span class="pill" onclick="quickSearch('anxiety')">Anxiety</span>
-          <span class="pill" onclick="quickSearch('inflammation')">Inflammation</span>
-        </div>
-      </div>`;
-    return;
-  }
 
-  // Show loading state
+  // Loading state
   document.getElementById('remedy-cards').innerHTML = `
     <div style="background:white;border-radius:14px;padding:2.5rem;border:1px solid var(--border);text-align:center;">
       <div style="font-size:2.5rem;margin-bottom:1rem;animation:pulse 1.5s infinite;">🌿</div>
@@ -6358,91 +6298,45 @@ async function showAILookup(drug) {
   style.textContent = '@keyframes loadBar{from{width:0%}to{width:95%}} @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}';
   document.head.appendChild(style);
 
-  const prompt = `You are a medical herbalism expert reviewing peer-reviewed literature. A visitor to Nanna's Herbal Apothecary (run by Iola Herschell, RN) is looking for evidence-based herbal alternatives to: "${drug}".
-
-Provide the top 3 evidence-based herbal alternatives. Return ONLY valid JSON in this exact format, no other text:
-
-{
-  "drug": "Full drug name and drug class",
-  "remedies": [
-    {
-      "rank": 1,
-      "name": "Herb Common Name",
-      "latin": "Genus species",
-      "efficacy": "High Evidence / Moderate Evidence / Emerging Evidence",
-      "description": "2-3 sentence clinical overview",
-      "howItWorks": "Mechanism of action explanation",
-      "dosage": "Specific dosage recommendation",
-      "sideEffects": ["side effect 1", "side effect 2", "side effect 3"],
-      "whyBetter": "Why this may be preferable to the pharmaceutical",
-      "studies": [
-        {
-          "title": "Journal: Study Title (Year)",
-          "link": "https://pubmed.ncbi.nlm.nih.gov/?term=relevant+search+terms",
-          "type": "Study type (RCT, Meta-Analysis, etc.)",
-          "evidenceLevel": "High / Moderate / Emerging",
-          "summary": "3-4 sentence plain-English summary of what the study did and found, with specific numbers where available",
-          "finding": "One-sentence key finding with specific data"
-        }
-      ],
-      "shopping": [
-        {"name": "Product Name", "form": "Capsules/Loose Herb/Extract", "qty": "quantity", "basePrice": 14.99, "supplier": "Mountain Rose Herbs"},
-        {"name": "Product Name", "form": "Capsules (60ct)", "qty": "1 bottle", "basePrice": 19.99, "supplier": "iHerb"}
-      ]
-    }
-  ]
-}
-
-IMPORTANT: Only cite real studies with real PubMed search terms. Always include safety disclaimers in sideEffects. Note when herbs interact with medications.`;
-
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('/.netlify/functions/herb-lookup', {
       method: 'POST',
-      headers: {
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 4096,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      headers: nannasLookupHeaders(),
+      body: JSON.stringify({ type: 'drug', query: drug })
     });
+    const result = await response.json();
 
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || 'API error');
+    if (response.status === 429 && result.status === 'rate_limited') {
+      showRateLimitMessage('remedy-cards', drug);
+      openEmailGate();
+      return;
+    }
+    if (response.status === 503 && result.status === 'capped') {
+      showCapMessage('remedy-cards');
+      return;
+    }
+    if (!response.ok || !result.data) {
+      throw new Error(result.error || 'Search failed');
     }
 
-    const data = await response.json();
-    const text = data.content[0].text.trim();
-    
-    // Extract JSON from response
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('Could not parse response');
-    
-    const result = JSON.parse(jsonMatch[0]);
-    
-    // Add AI badge to indicate this is AI-generated
-    result.isAI = true;
-    displayResults(result, drug);
-
+    const data = result.data;
+    data.isAI = true;
+    data._cached = result.status === 'cached';
+    data._remaining = result.remaining;
+    displayResults(data, drug);
   } catch (err) {
     document.getElementById('remedy-cards').innerHTML = `
       <div style="background:white;border-radius:14px;padding:2rem;border:1px solid var(--border);text-align:center;">
         <div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div>
         <h3 style="font-family:'Playfair Display',serif;color:var(--terracotta);margin-bottom:0.75rem;">Search Error</h3>
         <p style="font-family:'Lora',serif;color:var(--text-mid);font-size:0.9rem;line-height:1.7;max-width:480px;margin:0 auto 1rem;">
-          ${err.message.includes('Invalid') || err.message.includes('401') 
-            ? 'Your API key appears to be invalid. Please check it and try again.' 
-            : 'There was an issue connecting to the AI. Please try again in a moment.'}
+          There was an issue connecting to AI search: ${err.message}. Please try again in a moment.
         </p>
-        <button onclick="openApiSettings()" style="background:var(--sage);color:white;border:none;padding:0.75rem 1.5rem;border-radius:10px;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;">Update API Key</button>
       </div>`;
   }
 }
+
+// Note: Anthropic API call + prompt now lives server-side in netlify/functions/herb-lookup.js
 
 
 
@@ -6902,3 +6796,4 @@ function setLanguage(lang, silent) {
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
